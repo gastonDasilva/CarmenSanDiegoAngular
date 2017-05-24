@@ -9,7 +9,7 @@
   <!-- BOOTSTRAP -->
 <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
-<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<!--  <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script> -->
 </head>
 <body ng-controller="TodosLosVillanosCtrl as villanosT">
 	<div class="container">
@@ -37,12 +37,12 @@
         		<tr data-ng-repeat="villano in villanosT.villanos"> 
           		  <td>{{villano.nombre}}</td>
            		  <td>
-            		<button type="submit" class="btn btn-default btn-sm" ng-click="<!-- aca iria el metodo de borrar un villano -->">
+            		<button type="submit" class="btn btn-default btn-sm" ng-click="">
             			<span class="glyphicon glyphicon-remove"></span>
           			</button>
           		  </td>
           	 	  <td>
-            		<button type="submit" class="btn btn-default btn-sm" ng-click="<!-- aca iria el metodo de modificar un villano -->">
+            		<button type="submit" class="btn btn-default btn-sm" ng-click="villanosT.seleccionarVillano(villano)">
             			<span class="glyphicon glyphicon-pencil"></span>
           			</button>
           		 </td>
@@ -60,7 +60,7 @@
 				<input 
 					name="Nombre"
 					class="form-control" 
-					ng-model="villanosT.nombre"
+					ng-model="villanosT.villanoSeleccionado.nombre"
 					required="true"
 					ng-pattern="/^[0-9]+$/"
 					placeholder="Ingrese nombre del villano"
@@ -69,8 +69,8 @@
 			<div>
 			<label for="nombre">Sexo:</label>
 			<br>
-				<input type="radio" name="sexo" value="1">Masculino
-				<input type="radio" name="transporte" value="2">Femenino
+				<input type="radio" name="sexo" value="1">Masculino</input>
+				<input type="radio" name="sexo" value="2">Femenino</input>
 			</div>	
 			<br>	
 			<div class ="well well-lg">	
@@ -82,10 +82,10 @@
        			  </tr>
        		  </thead>
         	 <tbody>
-        		<tr data-ng-repeat="villano in villanosT.villanos"> 
-          		  <td>{{villano.seña}}</td>
+        		<tr data-ng-repeat="senhia in villanosT.villanoSeleccionado.senhia"> 
+          		  <td>{{senhia}}</td>
            		  <td>
-            		<button type="submit" class="btn btn-default btn-sm" ng-click="<!-- aca iria el metodo de borrar una seña de un villano -->">
+            		<button type="submit" class="btn btn-default btn-sm" ng-click="delete(senhia)">
             			<span class="glyphicon glyphicon-remove"></span>
           			</button>
           		  </td>
@@ -93,18 +93,18 @@
         		</tbody>
     	 	 </table>
     	 	 </div>	
+    	 	 <!-- ng-model="villanosT.seniaAagregar" -->
     	 	  <div class="input-group">
 						<input 
 							type="text"
-							name="seña"
+							ng-model="villanosT.senhiaAAgregar"
 							class="form-control" 
-							ng-model="paisesT.señaAagregar"
 							required="true"
 							ng-pattern="/^[0-9]+$/"
 							placeholder="Ingrese la seña a agregar"
 							autofocus="autofocus">
 							 <span class="input-group-btn">
-							<button type="button" class="btn btn-default " ng-click="villanosT.agregarseña">
+							<button type="button" class="btn btn-default " ng-click="villanosT.agregarsenhia()">
             					<span class="glyphicon glyphicon-plus"></span>
           					</button>
           					</span>
@@ -119,10 +119,10 @@
        			  </tr>
        		  </thead>
         	 <tbody>
-        		<tr data-ng-repeat="villano in villanosT.villanos"> 
-          		  <td>{{villano.hobbie}}</td>
+        		<tr data-ng-repeat="hobbie in villanosT.villanoSeleccionado.hobbie"> 
+          		  <td>{{hobbie}}</td>
            		  <td>
-            		<button type="submit" class="btn btn-default btn-sm" ng-click="<!-- aca iria el metodo de borrar una seña de un villano -->">
+            		<button type="submit" class="btn btn-default btn-sm" ng-click="">
             			<span class="glyphicon glyphicon-remove"></span>
           			</button>
           		  </td>
@@ -133,7 +133,6 @@
     	 	  <div class="input-group">
 						<input 
 							type="text"
-							name="hobbie"
 							class="form-control" 
 							ng-model="paisesT.hobbieAagregar"
 							required="true"
@@ -141,7 +140,7 @@
 							placeholder="Ingrese el hobbie a agregar"
 							autofocus="autofocus">
 							<span class="input-group-btn">
-							<button  type="button" class="btn btn-default " ng-click="villanosT.agregarhobbie">
+							<button  type="button" class="btn btn-default " ng-click="villanosT.agregarhobbie()">
             					<span class="glyphicon glyphicon-plus"></span>
           					</button>
           					</span>
