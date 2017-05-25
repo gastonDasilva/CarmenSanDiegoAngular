@@ -50,7 +50,7 @@
         		</tbody>
     	 	 </table>
     	 	 <button type="submit" class="btn btn-primary"
-			data-ng-click="">Nuevo</button>
+			data-ng-click="villanosT.nuevo()">Nuevo</button>
     		</div>
     	</form>
     	<form class="col-sm-4" name="convertirForm" role="form">
@@ -62,7 +62,6 @@
 					class="form-control" 
 					ng-model="villanosT.villanoSeleccionado.nombre"
 					required="true"
-					ng-pattern="/^[0-9]+$/"
 					placeholder="Ingrese nombre del villano"
 					autofocus="autofocus">
 			</div>
@@ -85,7 +84,7 @@
         		<tr data-ng-repeat="senhia in villanosT.villanoSeleccionado.senhia"> 
           		  <td>{{senhia}}</td>
            		  <td>
-            		<button type="submit" class="btn btn-default btn-sm" ng-click="delete(senhia)">
+            		<button type="submit" class="btn btn-default btn-sm" ng-click="villanosT.deleteSenhia(senhia)">
             			<span class="glyphicon glyphicon-remove"></span>
           			</button>
           		  </td>
@@ -95,12 +94,11 @@
     	 	 </div>	
     	 	 <!-- ng-model="villanosT.seniaAagregar" -->
     	 	  <div class="input-group">
+    	 	  <!-- required="true" -->
 						<input 
 							type="text"
 							ng-model="villanosT.senhiaAAgregar"
 							class="form-control" 
-							required="true"
-							ng-pattern="/^[0-9]+$/"
 							placeholder="Ingrese la seña a agregar"
 							autofocus="autofocus">
 							 <span class="input-group-btn">
@@ -134,9 +132,7 @@
 						<input 
 							type="text"
 							class="form-control" 
-							ng-model="paisesT.hobbieAagregar"
-							required="true"
-							ng-pattern="/^[0-9]+$/"
+							ng-model="villanosT.hobbieAagregar"
 							placeholder="Ingrese el hobbie a agregar"
 							autofocus="autofocus">
 							<span class="input-group-btn">
@@ -147,7 +143,7 @@
 			</div>
 			<br>
 			<button type="submit" class="btn btn-primary"
-			data-ng-click="">Aceptar</button> 			
+			data-ng-click="villanosT.aceptar">Aceptar</button> 			
 		</div>    
 		</form>
     </div>
