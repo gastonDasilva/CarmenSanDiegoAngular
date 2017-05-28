@@ -37,7 +37,7 @@
         		<tr data-ng-repeat="villano in villanosT.villanos"> 
           		  <td>{{villano.nombre}}</td>
            		  <td>
-            		<button type="submit" class="btn btn-default btn-sm" ng-click="">
+            		<button type="submit" class="btn btn-default btn-sm" ng-click="villanosT.deleteVillano(villano)">
             			<span class="glyphicon glyphicon-remove"></span>
           			</button>
           		  </td>
@@ -68,8 +68,8 @@
 			<div>
 			<label for="nombre">Sexo:</label>
 			<br>
-				<input type="radio" name="sexo" value="1">Masculino</input>
-				<input type="radio" name="sexo" value="2">Femenino</input>
+				<input type="radio" ng-model="villanosT.sexo" name="sexo" ng-value="Masculino">Masculino</input>
+				<input type="radio" ng-model="villanosT.sexo" name="sexo" ng-value="Femenino">Femenino</input>
 			</div>	
 			<br>	
 			<div class ="well well-lg">	
@@ -81,7 +81,7 @@
        			  </tr>
        		  </thead>
         	 <tbody>
-        		<tr data-ng-repeat="senhia in villanosT.villanoSeleccionado.senhia"> 
+        		<tr data-ng-repeat="senhia in villanosT.villanoSeleccionado.senhias"> 
           		  <td>{{senhia}}</td>
            		  <td>
             		<button type="submit" class="btn btn-default btn-sm" ng-click="villanosT.deleteSenhia(senhia)">
@@ -117,10 +117,10 @@
        			  </tr>
        		  </thead>
         	 <tbody>
-        		<tr data-ng-repeat="hobbie in villanosT.villanoSeleccionado.hobbie"> 
+        		<tr data-ng-repeat="hobbie in villanosT.villanoSeleccionado.hobbies"> 
           		  <td>{{hobbie}}</td>
            		  <td>
-            		<button type="submit" class="btn btn-default btn-sm" ng-click="">
+            		<button type="submit" class="btn btn-default btn-sm" ng-click="villanosT.deleteHobbie(hobbie)">
             			<span class="glyphicon glyphicon-remove"></span>
           			</button>
           		  </td>
@@ -143,7 +143,7 @@
 			</div>
 			<br>
 			<button type="submit" class="btn btn-primary"
-			data-ng-click="villanosT.aceptar">Aceptar</button> 			
+			data-ng-click="villanosT.aceptar()">Aceptar</button> 			
 		</div>    
 		</form>
     </div>
