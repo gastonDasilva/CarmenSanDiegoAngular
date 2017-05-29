@@ -9,9 +9,9 @@
   <!-- BOOTSTRAP -->
 <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
-<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>-->
 </head>
-<body ng-controller="TodosLospaisesConexionesCtrl as paisesC">
+<body ng-controller="TodosLospaisesConexionesYVillanosCtrl as paisesC">
  <div class="container">
 		<ul class="nav nav-pills">
   			<li role="navegacion" class="active"><a href="#">InicioDeJuego</a></li>
@@ -22,21 +22,18 @@
 	 	<h1>Juego <small>CarmenSanDiego</small></h1>
 	</div>
 	<div class="container">
-		<label for="titulo">Estas En:</label>
-			<p class="lead" data-ng-show="pais">{{paisesC.nombrePaisDondeEstoy}}</p>
-		<label for="titulo">Antes En :</label>
-			<p class="lead" data-ng-show="pais">{{paisesC.nombrePaisDondeEstuvoElVillano}}</p>			
+		<p class="lead" >Estan En :{{paisDondeEstoy.nombre}} <i> Antes En:{{paisesC.nombrePaisDondeEstuvoElVillano}}</i></p>				
 	</div>
 	<form class="col-sm-4">
 			
 		<div class ="well well-lg">
-			<label for="titulo">Viajar a:</label>
-				<p class="lead" data-ng-show="pais">{{paisesC.paisAViajar}}</p>	
+				<p class="lead" >Viajar A: {{paisesC.paisAViajar.nombre}}</p>	
 			<button type="submit" class="btn btn-primary"
-				data-ng-click="">Viajar
-			</button> 			
-		</div>
-			<div class ="well well-lg">	
+				data-ng-click="paisesC.viajar()">Viajar
+			</button>
+			<br>			
+			<div class ="well well-lg">
+				
      		 <table class="table table-striped table-hover">
       		  <thead>	
        			  <tr>
@@ -46,14 +43,17 @@
        		  </thead>
         	 <tbody>
        			 <!-- <tr ng-repeat="pais in paisesT.paises ">-->
-        		<tr data-ng-repeat="paises in paisesC.paisesConexiones"> 
-          		  <td>{{paises.nombre}}</td>
+        		<tr data-ng-repeat="pais in paisesC.paisesConexiones"> 
+          		  <td>{{pais.nombre}}</td>
            		  <td>
-   				<input type="radio" name="nombre" value="1">
+   				    <button type="submit" class="btn btn-default btn-sm" ng-click="paisesC.eligirPaisAViajar(pais)">
+            			<span class="glyphicon glyphicon-check"></span>
+          			</button>
           		  </td>
         	  	 </tr>
         		</tbody>
     	 	 </table>
+    		</div>
     		</div>
     					<div class ="well well-lg">	
      		 <table class="table table-striped table-hover">
@@ -72,7 +72,7 @@
     	 	 </table>
     		</div>
     	</form>
-    	<form class="col-sm-4">
+    	<form class="col-sm-5">
     		<div class ="well well-lg">
     		
     			<div class="btn-group btn-group-lg" role="group" >
@@ -91,11 +91,16 @@
     		
     		<div class ="well well-lg">
     			<h1> Orden De Arresto:</h1>
-    			<label for="titulo">Emitida Contra:</label>
-				<p class="lead" data-ng-show="pais">{{paisesC.villanoAArrestar}}</p>
-				<select name="paisesC.villanoAArrestar" class="form-control">
-       			<option>Nombre Del Villano</option>
-      			 </select>
+				<p class="lead" >Emitida Contra: {{paisesC.villanoAArrestar.nombre}}</p>
+				<select name="mySelectorDevillanos" 
+       					 id="mySelect" 
+       					 class="form-control"
+       					 ng-options="villano.nombre for villano in paisesC.villanos track by villano.id"
+     					 ng-model="paisesC.selectedVillanoAArrestar" >
+     		 			 <option value=""selected>Elige el Villano a arrestar </option></select>
+    					<span class="input-group-btn">
+       					</button>
+        				</span>
       			 <br>
       			<button type="button" class="btn btn-default"
   					data-ng-click="paisesC.generearOrdenDeArresto()">Pedir Orden De Arresto</button>	
@@ -103,6 +108,7 @@
     	</form>
 </div>
   <!-- Importamos los archivos extras que vamos a usar -->
-  <script src="js/app.js"></script>	
+  <script src="js/app.js"></script>
+  <script src="css/app.css"></script>		
 </body>
 </html>

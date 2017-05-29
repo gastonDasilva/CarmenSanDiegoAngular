@@ -1,19 +1,28 @@
-'use strict';
+/*'use strict';*/
 
-var app = angular.module('expedientesApp', []);
-
-app.controller('TodosLosVillanosCtrl', function ($scope) {
-	this.villanos = [{"id":1,"nombre": "CarmenSanDiego", "sexo":"Femenino",
+var app = angular.module('expedientesApp', [/*antes no habia nada */'ngAnimate', 'ngResource', 'chieffancypants.loadingBar']);
+											/*em esta lista*/						
+app.controller('TodosLosVillanosCtrl', function (/*$scope*/$resource, $timeout, cfpLoadingBar, Villanos) {
+	'use strict';
+	/*this.villanos = [{"id":1,"nombre": "CarmenSanDiego", "sexo":"Femenino",
 					"senhias":["pelo rojo","ojos bordo"],"hobbies":["juega al golf","mira porno"]},
 	                 {"id":2,"nombre": "Igor Cratov", "sexo":"Masculino",
 					"senhias":["pelo rojo","ojos bordo"],"hobbies":["ve anime"," se va de putas"]}, 
 	                 {"id":3,"nombre": "Fernando Torres", "sexo":"Masculino",
 					"senhias":["pelo rojo","ojos bordo"],"hobbies":["pelo rojo","ojos bordo"]}, 
 	                 {"id":4,"nombre": "Alexander Patrov", "sexo":"Masculino",
-					"senhias":["pelo rojo","ojos bordo"],"hobbies":["fuma opio","se injecta heroina"]}];
+					"senhias":["pelo rojo","ojos bordo"],"hobbies":["fuma opio","se injecta heroina"]}];*/
 	
+	self.villanos = [];
 	console.log("Inicializando");
 	var self = this;
+	
+    this.actualizarLista = function() {
+    	Villanos.query(function(data) {
+            self.villanos = data;
+        });
+    };
+    this.actualizarLista();
 
 	this.seleccionarVillano = function(villano) {
 		console.log("Seleccionando " + villano);
@@ -45,11 +54,19 @@ app.controller('TodosLosVillanosCtrl', function ($scope) {
 	}
 	
 	this.deleteVillano =function(villano){
-		console.log("Seleccionando para borrar" + villano.nombre );
+		/*console.log("Seleccionando para borrar" + villano.nombre );
 		this.villanos =this.villanos.filter(
 			function(it) {
 				return it.id!=villano.id;
-			})	
+			})*/
+        var mensaje = "¿Está seguro de eliminar: '" + villano.nombre + "'?";
+        bootbox.confirm(mensaje, function(confirma) {
+            if (confirma) {
+                Villanos.remove(villano, function() {
+                    self.actualizarLista();
+                });
+            }
+        });
 	}
 	this.nuevo = function(){
 		this.villanoSeleccionado = {"id":this.villanos.length + 1,"nombre":"","senhias":[],"hobbies":[]};
@@ -64,7 +81,11 @@ app.controller('TodosLosVillanosCtrl', function ($scope) {
 					});
 		if(villanoFind==  null){
 			console.log("Seleccionando es nuevo" );
-			this.villanos.push(this.villanoSeleccionado);
+			/*this.villanos.push(this.villanoSeleccionado);*/
+			Villanos.save(this.villanoSeleccionado, function(data) {
+	            self.actualizarLista();
+	            self.villanoSeleccionado = null;
+	        });
 		}else{console.log("Seleccionando ya existe" ); }
 	}
 	
